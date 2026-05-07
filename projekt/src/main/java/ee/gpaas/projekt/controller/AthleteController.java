@@ -1,9 +1,11 @@
 package ee.gpaas.projekt.controller;
 
+import ee.gpaas.projekt.dto.AthleteSummary;
 import ee.gpaas.projekt.entity.Athlete;
 import ee.gpaas.projekt.entity.Result;
 import ee.gpaas.projekt.service.AthleteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,17 @@ public class AthleteController {
 
     @Autowired
     private AthleteService athleteService;
+
+    // GET sportlased lehekülgede kaupa, riigi järgi filtreeritult ja kogupunktide järgi sorditult
+    @GetMapping
+    public ResponseEntity<Page<AthleteSummary>> getAthletes(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false, defaultValue = "desc") String sortDirection) {
+        Page<AthleteSummary> athletes = athleteService.getAthletes(page, size, country, sortDirection);
+        return ResponseEntity.ok(athletes);
+    }
 
     // Loo uus sportlane
     @PostMapping

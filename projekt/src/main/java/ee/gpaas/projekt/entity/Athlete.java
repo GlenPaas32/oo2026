@@ -20,6 +20,8 @@ public class Athlete {
     @Column(nullable = false)
     private String name;
 
+    private String country;
+
     @OneToMany(mappedBy = "athlete", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Result> results = new ArrayList<>();
