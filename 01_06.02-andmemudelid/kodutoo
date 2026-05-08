@@ -1,0 +1,73 @@
+CONTROLLER!
+package ee.gpaas.veebipood.controller;
+
+import ee.gpaas.veebipood.entity.Film;
+import ee.gpaas.veebipood.repository.FilmRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class FilmController {
+
+   @Autowired
+    private FilmRepository filmRepository;
+
+
+   @GetMapping("/films")
+    public List<Film> getFilms() {
+        return filmRepository.findAll();
+    }
+
+
+    @DeleteMapping("/films/{id}")
+    public List<Film> deleteFilm(@PathVariable Long id) {
+        filmRepository.deleteById(id);
+        return filmRepository.findAll();
+    }
+
+
+    @PostMapping("/films")
+    public List<Film> postFilm(@RequestBody Film film) {
+        filmRepository.save(film);
+        return filmRepository.findAll();
+    }
+}
+
+
+ENTITY!
+package ee.gpaas.veebipood.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+
+
+public class Film {
+   @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+   private int year;
+    private int duration;
+    private String description;
+}
+
+REPOSITORY!
+
+package ee.gpaas.veebipood.repository;
+
+import ee.gpaas.veebipood.entity.Film;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FilmRepository extends JpaRepository<Film, Long> {
+}

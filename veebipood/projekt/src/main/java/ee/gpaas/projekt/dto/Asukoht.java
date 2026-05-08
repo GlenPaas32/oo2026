@@ -1,4 +1,4 @@
 package ee.gpaas.projekt.dto;
 
-public class Asukoht {
+public record Asukoht(String koht, String linn, int mahutavus) {
 }

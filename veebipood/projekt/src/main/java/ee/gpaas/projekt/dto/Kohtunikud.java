@@ -1,4 +1,4 @@
 package ee.gpaas.projekt.dto;
 
-public class Kohtunikud {
+public record Kohtunikud(String nimi, int vanus, String spordiala) {
 }
