@@ -1,7 +1,8 @@
 package ee.gpaas.veebipood.dto;
 
-public record OrderRowDto( // DTO --> Data Transfer Object
-                           Long productId,
-                           int quantity
+public record OrderRowDto(
+        Long productId,
+        int quantity
+
 ) {
 }

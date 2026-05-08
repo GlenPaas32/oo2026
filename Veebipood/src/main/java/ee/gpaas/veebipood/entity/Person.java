@@ -1,6 +1,6 @@
 package ee.gpaas.veebipood.entity;
 
-//import javax.persistence.*
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Person { // User on hõivatud PostgreSQL tasandil
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +23,7 @@ public class Person { // User on hõivatud PostgreSQL tasandil
     private String password;
     @Column(unique = true)
     private String personalCode;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 }

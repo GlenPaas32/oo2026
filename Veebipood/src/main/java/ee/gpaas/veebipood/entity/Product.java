@@ -20,7 +20,7 @@ public class Product {
     private double price;
     private boolean active;
     private int stock;
+
     @ManyToOne
     private Category category;
-
 }

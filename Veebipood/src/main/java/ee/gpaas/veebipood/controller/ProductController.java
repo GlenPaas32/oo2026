@@ -4,15 +4,12 @@ import ee.gpaas.veebipood.entity.Product;
 import ee.gpaas.veebipood.repository.ProductRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;  // !!!!!!!!!!!!!
-import org.springframework.data.domain.Pageable; // !!!!!!!!!!!!!
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
+import java.util.List;
 
-@CrossOrigin(origins = "*") // turvaviga, päris arendustes seda ei teeks
-// @CrossOrigin(origins = "http://localhost:5173").
-// @CrossOrigin(origins = "https://www.arvutitark.ee").
 @RestController
 public class ProductController {
     // localhost:8080/products
@@ -31,10 +28,13 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    // localhost:8080/products?page=0&size=4&sort=price,asc
     @GetMapping("products")
-    public Page<@NonNull Product> getProducts(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public Page<@NonNull Product> getProducts(Pageable pageable, @RequestParam(required = false) Long activeCategoryId) {
+        if (activeCategoryId == null || activeCategoryId == 0) {
+            return productRepository.findAll(pageable);
+        } else {
+            return productRepository.findAllByCategoryId(pageable, activeCategoryId);
+        }
     }
 
     @GetMapping("products/admin")

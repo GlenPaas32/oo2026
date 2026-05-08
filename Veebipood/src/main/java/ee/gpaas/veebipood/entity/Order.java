@@ -1,6 +1,5 @@
 package ee.gpaas.veebipood.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,13 +9,14 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "orders")
-public class Order { // ERROR: syntax error at or near "order"
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +27,7 @@ public class Order { // ERROR: syntax error at or near "order"
     @ManyToOne
     private Person person;
 
-    // @ManyToMany
-    // @OneToMany
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderRow> orderRows;
+
 }
